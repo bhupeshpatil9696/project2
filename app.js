@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != "production"){
+  require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -5,7 +9,7 @@ const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 
-// ✅ FIX: use env variable (fallback for local)
+// ✅ FIX: use Atlas in production, local in dev
 const MONGO_URL = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
 
 main()
@@ -76,7 +80,7 @@ app.delete("/listings/:id", async (req, res) => {
   res.redirect("/listings");
 });
 
-// ✅ FIX: dynamic port (VERY IMPORTANT)
+// ✅ FIX: dynamic port
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
