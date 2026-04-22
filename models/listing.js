@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Review=require("./review.js");
-const { required } = require("joi");
+const Review = require("./review.js");
 
 const listingSchema = new Schema({
   title: {
@@ -9,25 +8,23 @@ const listingSchema = new Schema({
     required: true,
   },
   description: String,
-
   image: {
-    url:String,
-    required:String,
-  }, 
-
+    url: String,
+    filename: String,       // ✅ fixed — was "required: String"
+  },
   price: Number,
   location: String,
   country: String,
-  reviews:[
-{
-  type:Schema.Types.ObjectId,
-  ref:"Review"
-}
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
   ],
   owner: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "User",
-}
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {
@@ -36,5 +33,4 @@ listingSchema.post("findOneAndDelete", async (listing) => {
   }
 });
 
-const Listing = mongoose.model("Listing", listingSchema);
-module.exports = Listing;
+module.exports = mongoose.model("Listing", listingSchema);

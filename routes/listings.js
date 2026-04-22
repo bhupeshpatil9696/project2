@@ -17,7 +17,7 @@ router
 //create
 .post(
   isLoggedIn, 
-  upload.single('listing[image]')// added to upload
+  upload.single('image')// added to upload
   ,validateListings,
   wrapAsync(listingController.createListings)
 );
