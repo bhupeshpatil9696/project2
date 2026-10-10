@@ -34,9 +34,9 @@ module.exports.createListings = async (req, res) => {
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
 
-  if (req.file) {                     // ✅ safely check if file exists
+  if (req.file) {                     
     newListing.image = {
-      url: req.file.path,             // cloudinary gives url in path
+      url: req.file.path,             
       filename: req.file.filename,
     };
   }
